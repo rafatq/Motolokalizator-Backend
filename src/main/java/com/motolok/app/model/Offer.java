@@ -1,9 +1,6 @@
 package com.motolok.app.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Offer {
@@ -23,7 +20,7 @@ public class Offer {
     private Integer year;
     @Column
     private String plate;
-    @Column
+    @Lob
     private String image;
     @Column
     private Double latitude;
