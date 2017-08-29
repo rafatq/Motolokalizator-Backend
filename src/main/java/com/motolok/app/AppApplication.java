@@ -1,12 +1,12 @@
 package com.motolok.app;
 
+import com.motolok.app.model.Offer;
+import com.motolok.app.repo.OfferRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -14,18 +14,25 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
-@Controller
+@RestController
 @SpringBootApplication
 public class AppApplication {
 
-	@RequestMapping("/")
-	@ResponseBody
-	String home() {
-		return "Hello World!";
+	@Autowired
+	private OfferRepo offerRepo;
+
+	@PostMapping("offers")
+	public ResponseEntity<Offer> create(@RequestBody Offer offer){
+		Offer o = offerRepo.save(offer);
+		return ResponseEntity.ok(o);
 	}
 
-
+	@GetMapping("offers")
+	public List<Offer> getOffers(){
+		return offerRepo.findAll();
+	}
 	@PostMapping("/upload") // //new annotation since 4.3
 	@ResponseBody
 	public String singleFileUpload(@RequestParam("file") MultipartFile file,
