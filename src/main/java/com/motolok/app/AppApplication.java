@@ -34,6 +34,11 @@ public class AppApplication {
 		return offerRepo.findAll();
 	}
 
+	@GetMapping("offers/{id}")
+	public ResponseEntity<Offer> findOne(@PathVariable Long id){
+		return ResponseEntity.ok(offerRepo.findOne(id));
+	}
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppApplication.class, args);
