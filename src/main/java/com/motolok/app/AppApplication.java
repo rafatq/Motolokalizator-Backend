@@ -33,32 +33,7 @@ public class AppApplication {
 	public List<Offer> getOffers(){
 		return offerRepo.findAll();
 	}
-	@PostMapping("/upload") // //new annotation since 4.3
-	@ResponseBody
-	public String singleFileUpload(@RequestParam("file") MultipartFile file,
-								   RedirectAttributes redirectAttributes) {
 
-		if (file.isEmpty()) {
-//			redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-			return "rPlease select a file to upload";
-		}
-
-		try {
-
-			// Get the file and save it somewhere
-			byte[] bytes = file.getBytes();
-			Path path = Paths.get("./" + file.getOriginalFilename());
-			Files.write(path, bytes);
-
-//			redirectAttributes.addFlashAttribute("message",
-//					"You successfully uploaded '" + file.getOriginalFilename() + "'");
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return "redirect:/uploadStatus";
-	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppApplication.class, args);
