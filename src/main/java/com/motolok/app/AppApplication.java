@@ -24,7 +24,7 @@ public class AppApplication {
 	private OfferRepo offerRepo;
 
 	@PostMapping("offers")
-	public ResponseEntity<Offer> create(@RequestBody Offer offer){
+	public ResponseEntity<Offer> createOffer(@RequestBody Offer offer){
 		Offer o = offerRepo.save(offer);
 		return ResponseEntity.ok(o);
 	}
